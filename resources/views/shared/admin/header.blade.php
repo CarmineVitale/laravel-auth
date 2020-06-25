@@ -35,6 +35,7 @@
                     <ul class="navbar-nav mr-auto">
                         <a class="nav-link" href="{{ route('admin.posts.index') }}">Archivio Post</a>
                         <a class="nav-link" href="{{ route('home') }}">Home</a>
+                        <a class="nav-link" href="{{ route('admin.posts.create') }}">Nuovo Post</a>
 
                     </ul>
 
