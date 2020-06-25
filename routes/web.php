@@ -14,9 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('guest.welcome');
+})->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Gestisco rotte per visualizzazione solo posts senza utente loggato
+Route::get('posts', 'PostController@index')->name('posts.index');
+
+Route::prefix('admin')
+    ->name('admin.')
+    ->namespace('Admin')
+    ->middleware('auth')
+    ->group(function () {
+
+        Route::get('/home', 'HomeController@index')->name('home');
+        Route::resource('posts', 'PostController');
+    });
+
