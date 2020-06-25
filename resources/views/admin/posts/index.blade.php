@@ -23,8 +23,8 @@
                 <tr>
                     <td>{{ $post->id }}</td>
                     <td>{{ $post->title }}</td>
-                    <td>{{ $post->created_at }}</td>
-                    <td>{{ $post->updated_at }}</td>
+                    <td>{{ $post->created_at->format('d/m/y G:i') }}</td>
+                    <td>{{ $post->updated_at->diffForHumans() }}</td>
                     <td>
                         <a class="btn btn-primary" href="{{ route('admin.posts.show', $post->id) }}">Dettagli</a>
                     </td>
