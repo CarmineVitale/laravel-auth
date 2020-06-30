@@ -100,6 +100,16 @@ class PostController extends Controller
 
         $data = $request->all();
         $data['slug'] = Str::slug($data['title'], '-');
+        //per l'immagine
+        if (!empty($data['img'])) {
+            //cancella immagine esistente se è presente
+            if (!empty($post->img)) {
+                Storage::disk('public')->delete($post->img);
+            }
+            
+            //setto nuova immagine aggiornata
+            $data['img'] = Storage::disk('public')->put('img', $data['img']);
+        }
 
         $updated = $post->update($data);
 
@@ -123,6 +133,9 @@ class PostController extends Controller
         $deleted = $post->delete();
 
         if ($deleted) {
+            if (!empty($post->img)) {
+                Storage::disk('public')->delete($post->img);
+            }
             return redirect()->route('admin.posts.index')->with('deleted', $deleted);
         }
     }
