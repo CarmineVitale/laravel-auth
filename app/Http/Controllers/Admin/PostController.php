@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -44,6 +45,12 @@ class PostController extends Controller
 
        $data['user_id'] = Auth::id();
        $data['slug'] = Str::slug($data['title'], '-');
+
+       //per immagine caricata
+       if(!empty($data['img'])) {
+        $data['img'] = Storage::disk('public')->put('img', $data['img']);
+
+       }
 
        $newPost = new Post();
 
@@ -123,7 +130,8 @@ class PostController extends Controller
     public function validation() {
         return [
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'img' => 'image',
         ];
     }
 }

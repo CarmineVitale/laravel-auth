@@ -38,5 +38,10 @@
            
         </tbody>
     </table>
+    
+    @if(!empty($post->img))
+        <h3>Immagine post:</h3>
+        <img src="{{ asset('storage/' . $post->img) }}" alt="{{ $post->title }}">
+    @endif
 </div>
 @endsection

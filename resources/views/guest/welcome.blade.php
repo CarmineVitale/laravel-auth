@@ -69,8 +69,10 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ route('posts.index') }}">Blog</a>
+                        <a href="{{ route('admin.posts.index') }}">Admin Dashboard</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
+                        
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
@@ -79,6 +81,7 @@
                 </div>
             @endif
             <h1>HOMEPAGE</h1>
+            <a href="{{ route('posts.index') }}">Vai al Blog come ospite</a>
             </div>
             
         </div>
