@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Mail\NewPost;
+use App\Mail\DeletedPost;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -59,6 +62,7 @@ class PostController extends Controller
        $saved = $newPost->save();
 
        if ($saved) {
+           Mail::to('ciao@test.it')->send(new NewPost($newPost));
            return redirect()->route('admin.posts.show', $newPost->id);
        }
 
@@ -136,6 +140,7 @@ class PostController extends Controller
             if (!empty($post->img)) {
                 Storage::disk('public')->delete($post->img);
             }
+            Mail::to('ciao@test.it')->send(new DeletedPost($post));
             return redirect()->route('admin.posts.index')->with('deleted', $deleted);
         }
     }
